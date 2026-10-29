@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "673039110334",
+    "project_id": "gig-finder-flutter-app",
+    "storage_bucket": "gig-finder-flutter-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673039110334:android:871521427ed6214a084eef",
+        "android_client_info": {
+          "package_name": "com.example.gig_finder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj-f_2pG5iSoBry9zISxEKxB_cyG91lCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

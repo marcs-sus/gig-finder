@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../data/sample_gigs.dart';
 import '../../widgets/gig_card.dart';
 
 class SearchGigsTab extends StatelessWidget {
@@ -70,7 +71,7 @@ class ListTab extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: ListView(children: const [GigCard(), GigCard(), GigCard()]),
+          child: ListView(children: [for (final gig in sampleGigs) GigCard(gig: gig)]),
         ),
       ],
     );

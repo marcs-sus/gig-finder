@@ -1,27 +1,37 @@
 import 'package:flutter/material.dart';
 
+import '../models/gig.dart';
 import 'gig_detail_sheet.dart';
 
 class GigCard extends StatelessWidget {
-  const GigCard({super.key});
+  const GigCard({super.key, required this.gig});
+
+  final Gig gig;
 
   @override
   Widget build(BuildContext context) {
+    final info = [
+      if (gig.neighborhood != null && gig.neighborhood!.isNotEmpty)
+        gig.neighborhood!,
+      if (gig.priceRange != null && gig.priceRange!.isNotEmpty) gig.priceRange!,
+    ].join(' · ');
+
     return Card(
       child: ListTile(
-        title: const Text('Gig Title'),
-        subtitle: const Column(
+        title: Text(gig.title),
+        subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Tag1 · Tag2'),
-            Text('Neighborhood · Price range'),
-            Text('Description preview...'),
+            if (gig.tags.isNotEmpty) Text(gig.tags.join(' · ')),
+            if (info.isNotEmpty) Text(info),
+            Text(
+              gig.description,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
           ],
         ),
-        onTap: () => showModalBottomSheet<void>(
-          context: context,
-          builder: (_) => const GigDetailSheet(),
-        ),
+        onTap: () => GigDetailSheet.show(context, gig),
       ),
     );
   }

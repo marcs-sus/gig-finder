@@ -4,6 +4,7 @@ class GigModel {
   final String id;
   final String ownerId;
   final String? ownerName;
+  final String? ownerPhone; // E.164, copiado do perfil ao publicar (usado no WhatsApp)
   final String title;
   final String category;
   final String description;
@@ -19,6 +20,7 @@ class GigModel {
     required this.id,
     required this.ownerId,
     this.ownerName,
+    this.ownerPhone,
     required this.title,
     required this.category,
     required this.description,
@@ -31,6 +33,17 @@ class GigModel {
     required this.createdAt,
   });
 
+  /// Tags do bico (campo `category`, separado por vírgula).
+  List<String> get tags => category
+      .split(',')
+      .map((t) => t.trim())
+      .where((t) => t.isNotEmpty)
+      .toList();
+
+  bool get hasLocation => location != null;
+
+  bool get hasPhoto => photoUrl != null && photoUrl!.trim().isNotEmpty;
+
   factory GigModel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>? ?? {};
 
@@ -38,6 +51,7 @@ class GigModel {
       id: doc.id,
       ownerId: data['ownerId'] as String? ?? '',
       ownerName: data['ownerName'] as String?,
+      ownerPhone: data['ownerPhone'] as String?,
       title: data['title'] as String? ?? '',
       category: data['category'] as String? ?? '',
       description: data['description'] as String? ?? '',
@@ -55,6 +69,7 @@ class GigModel {
     return {
       'ownerId': ownerId,
       'ownerName': ownerName,
+      'ownerPhone': ownerPhone,
       'title': title,
       'category': category,
       'description': description,
